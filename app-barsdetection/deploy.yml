@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  labels:
+    app: app-barsdetection
+
+  name: app-barsdetection
+
+spec:
+  selector:
+    matchLabels:
+      app: app-barsdetection
+
+  template:
+    metadata:
+      labels:
+        app: app-barsdetection
+
+    spec:
+      containers:
+        - image: wgbhmla/app-barsdetection:init
+          name: app-barsdetection
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - mountPath: '/m'
+              name: media
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-pvc
