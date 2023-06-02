@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  labels:
+    app: app-spacy
+
+  name: app-spacy
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: app-spacy
+
+  template:
+    metadata:
+      labels:
+        app: app-spacy
+
+    spec:
+      containers:
+        - image: ghcr.io/clamsproject/app-spacy-wrapper:latest
+          name: app-spacy
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - mountPath: '/m'
+              name: media
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-pvc
