@@ -9,8 +9,6 @@ metadata:
   name: app-spacy
 
 spec:
-  replicas: 1
-
   selector:
     matchLabels:
       app: app-spacy
