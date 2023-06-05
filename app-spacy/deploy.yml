@@ -28,6 +28,13 @@ spec:
           volumeMounts:
             - mountPath: '/m'
               name: media
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+            requests:
+              cpu: 100m
+              memory: 100Mi
       volumes:
         - name: media
           persistentVolumeClaim:
