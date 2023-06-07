@@ -20,7 +20,7 @@ spec:
 
     spec:
       containers:
-        - image: ghcr.io/clamsproject/mmif-visualizer:latest
+        - image: ghcr.io/clamsproject/mmif-visualizer:pr-21
           name: mmif-visualizer
           imagePullPolicy: Always
           ports:
