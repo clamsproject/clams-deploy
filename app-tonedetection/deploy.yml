@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  labels:
+    app: app-tonedetection
+
+  name: app-tonedetection
+
+spec:
+  selector:
+    matchLabels:
+      app: app-tonedetection
+
+  template:
+    metadata:
+      labels:
+        app: app-tonedetection
+
+    spec:
+      containers:
+        - image: ghcr.io/clamsproject/app-tonedetection:latest
+          name: app-tonedetection
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - mountPath: '/m'
+              name: media
+          resources:
+            limits:
+              cpu: '1000m'
+              memory: '2Gi'
+            requests:
+              cpu: '100m'
+              memory: '100Mi'
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-pvc
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: render
+                    operator: In
+                    values:
+                      - cpu
