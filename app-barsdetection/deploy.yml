@@ -20,7 +20,7 @@ spec:
 
     spec:
       containers:
-        - image: wgbhmla/app-barsdetection:init
+        - image: ghcr.io/clamsproject/app-barsdetection:v1.1
           name: app-barsdetection
           imagePullPolicy: Always
           ports:
