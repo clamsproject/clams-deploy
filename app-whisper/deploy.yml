@@ -28,6 +28,8 @@ spec:
           volumeMounts:
             - mountPath: '/m'
               name: media
+            - mountPath: '/root/.cache/whisper'
+              name: models
           resources:
             limits:
               cpu: '1000m'
@@ -39,6 +41,9 @@ spec:
         - name: media
           persistentVolumeClaim:
             claimName: media-pvc
+        - name: models
+          persistentVolumeClaim:
+            claimName: whisper-models
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
