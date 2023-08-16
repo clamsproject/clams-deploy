@@ -54,3 +54,7 @@ spec:
                     values:
                       - cpu
                       - gpu
+      tolerations:
+        - key: gpu
+          operator: Exists
+          effect: NoSchedule
