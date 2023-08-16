@@ -20,7 +20,7 @@ spec:
 
     spec:
       containers:
-        - image: ghcr.io/clamsproject/app-whisper-wrapper:v2
+        - image: ghcr.io/clamsproject/app-whisper-wrapper:v3
           name: app-whisper
           imagePullPolicy: Always
           ports:
