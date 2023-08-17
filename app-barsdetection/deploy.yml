@@ -20,7 +20,7 @@ spec:
 
     spec:
       containers:
-        - image: ghcr.io/clamsproject/app-barsdetection:v1.1
+        - image: ghcr.io/clamsproject/app-barsdetection:latest
           name: app-barsdetection
           imagePullPolicy: Always
           ports:
@@ -28,7 +28,23 @@ spec:
           volumeMounts:
             - mountPath: '/m'
               name: media
+          resources:
+            limits:
+              cpu: '1000m'
+              memory: '2Gi'
+            requests:
+              cpu: '100m'
+              memory: '100Mi'
       volumes:
         - name: media
           persistentVolumeClaim:
             claimName: media-pvc
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: render
+                    operator: In
+                    values:
+                      - cpu

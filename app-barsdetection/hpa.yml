@@ -4,8 +4,9 @@ metadata:
   name: hpa-app-barsdetection
 spec:
   scaleTargetRef:
-    kind: ReplicaSet
+    apiVersion: apps/v1
+    kind: Deployment
     name: app-barsdetection
   minReplicas: 1
-  maxReplicas: 10
+  maxReplicas: 5
   targetCPUUtilizationPercentage: 50
