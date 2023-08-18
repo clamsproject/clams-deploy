@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-pyscenedetect
+spec:
+  selector:
+    app: app-pyscenedetect
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
