@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  labels:
+    app: app-fewshotclassifier
+
+  name: app-fewshotclassifier
+
+spec:
+  selector:
+    matchLabels:
+      app: app-fewshotclassifier
+
+  template:
+    metadata:
+      labels:
+        app: app-fewshotclassifier
+
+    spec:
+      containers:
+        - image: ghcr.io/clamsproject/app-fewshotclassifier:latest
+          name: app-fewshotclassifier
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - mountPath: '/m'
+              name: media
+          resources:
+            limits:
+              cpu: '1000m'
+              memory: '2Gi'
+            requests:
+              cpu: '100m'
+              memory: '100Mi'
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-pvc
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: render
+                    operator: In
+                    values:
+                      - cpu
