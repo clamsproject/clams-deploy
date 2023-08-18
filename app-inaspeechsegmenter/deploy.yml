@@ -4,24 +4,24 @@ kind: Deployment
 
 metadata:
   labels:
-    app: app-pyscenedetect
+    app: app-inaspeechsegmenter
 
-  name: app-pyscenedetect
+  name: app-inaspeechsegmenter
 
 spec:
   selector:
     matchLabels:
-      app: app-pyscenedetect
+      app: app-inaspeechsegmenter
 
   template:
     metadata:
       labels:
-        app: app-pyscenedetect
+        app: app-inaspeechsegmenter
 
     spec:
       containers:
-        - image: ghcr.io/clamsproject/app-pyscenedetect-wrapper:latest
-          name: app-pyscenedetect
+        - image: ghcr.io/clamsproject/app-inaspeechsegmenter-wrapper:latest
+          name: app-inaspeechsegmenter
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
