@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-chyron-detection
+spec:
+  selector:
+    app: app-chyron-detection
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
