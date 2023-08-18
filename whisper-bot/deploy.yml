@@ -4,27 +4,27 @@ kind: Deployment
 
 metadata:
   labels:
-    app: app-whisper
+    app: whisper-bot
 
-  name: app-whisper
+  name: whisper-bot
 
 spec:
   selector:
     matchLabels:
-      app: app-whisper
+      app: whisper-bot
 
   template:
     metadata:
       labels:
-        app: app-whisper
+        app: whisper-bot
 
     spec:
       containers:
-        - image: ghcr.io/clamsproject/app-whisper-wrapper:latest
-          name: app-whisper
+        - image: ghcr.io/wgbh-mla/whisper-bot:latest
+          name: whisper-bot
           imagePullPolicy: Always
-          ports:
-            - containerPort: 5000
+          command: ['/bin/bash', '-c']
+          args: ['sleep 6000']
           volumeMounts:
             - mountPath: '/m'
               name: media
@@ -54,7 +54,6 @@ spec:
                   - key: render
                     operator: In
                     values:
-                      # - cpu
                       - gpu
       tolerations:
         - key: gpu
