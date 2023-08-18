@@ -1,12 +1,12 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: hpa-app-tonedetection
+  name: hpa-app-gentle-forced-aligner
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: app-tonedetection
+    name: app-gentle-forced-aligner
   minReplicas: 1
   maxReplicas: 3
   metrics:
