@@ -30,7 +30,7 @@ spec:
               name: media
           resources:
             limits:
-              cpu: '1000m'
+              cpu: '2'
               memory: '2Gi'
             requests:
               cpu: '100m'
