@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  labels:
+    app: app-whisper-cpu
+
+  name: app-whisper-cpu
+
+spec:
+  selector:
+    matchLabels:
+      app: app-whisper-cpu
+
+  template:
+    metadata:
+      labels:
+        app: app-whisper-cpu
+
+    spec:
+      containers:
+        - image: ghcr.io/clamsproject/app-whisper-wrapper:latest
+          name: app-whisper-cpu
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - mountPath: '/m'
+              name: media
+            - mountPath: '/root/.cache/whisper'
+              name: models
+          resources:
+            limits:
+              cpu: '2'
+              memory: '4Gi'
+            requests:
+              cpu: '1000m'
+              memory: '1000Mi'
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-pvc
+        - name: models
+          persistentVolumeClaim:
+            claimName: whisper-models
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: render
+                    operator: In
+                    values:
+                      - cpu
+      tolerations:
+        - key: gpu
+          operator: Exists
+          effect: NoSchedule
