@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  labels:
+    app: app-swt-detection-v3
+
+  name: app-swt-detection-v3
+
+spec:
+  selector:
+    matchLabels:
+      app: app-swt-detection-v3
+
+  template:
+    metadata:
+      labels:
+        app: app-swt-detection-v3
+
+    spec:
+      containers:
+        - image: ghcr.io/clamsproject/app-swt-detection:v3.0
+          name: app-swt-detection-v3
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - mountPath: '/m'
+              name: media
+          resources:
+            limits:
+              cpu: '4'
+              memory: '2Gi'
+            requests:
+              cpu: '100m'
+              memory: '100Mi'
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-pvc
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: render
+                    operator: In
+                    values:
+                      - cpu
