@@ -1,0 +1,12 @@
+{
+  "app_name": "app-myapp",
+  "project_slug": "{{ cookiecutter.app_name }}",
+  "app_description": "My CLAMS App",
+  "app_repository": "https://github.com/clamsproject/{{ cookiecutter.app_name }}",
+  "app_version": "v1",
+  "app_image": "ghcr.io/clamsproject/{{ cookiecutter.app_name }}:{{ cookiecutter.app_version }}",
+  "cpu_limit": "1",
+  "memory_limit": "1Gi",
+  "maxReplicas": 5,
+  "targetCPUUtilizationPercentage": 50
+}
